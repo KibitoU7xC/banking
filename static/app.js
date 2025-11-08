@@ -79,23 +79,24 @@ async function createAccount() {
   }
 }
 
-async function loadAccounts() {
-  const el = document.getElementById('accounts_list');
-  if (!el) return;
-  el.innerHTML = ""; // ✅ clear instead of showing Loading...
-  
-  const res = await fetch('/api/accounts', { method: 'POST', credentials: 'same-origin' });
+async function createAccount() {
+  const t = document.getElementById('acct_type').value;
+  const res = await fetch('/api/create_account', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({account_type: t}),
+    credentials: 'same-origin'
+  });
   const j = await res.json();
   if (res.ok) {
-    const rows = j.accounts || [];
-    if (rows.length === 0) el.innerHTML = "<div>No accounts yet</div>"; // ✅ cleaner message
-    else el.innerHTML = rows.map(r => `
-      <div><strong>${r.account_number}</strong> (${r.account_type}) - Balance: ${r.balance}</div>
-    `).join('');
+    alert("Created: " + j.account_number);
+    // ✅ Wait briefly for DB commit before refreshing
+    setTimeout(loadAccounts, 500);
   } else {
-    el.innerHTML = "<div>Error loading accounts</div>";
+    alert("Error: " + (j.error || JSON.stringify(j)));
   }
 }
+
 
 
 async function makeTx() {
