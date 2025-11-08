@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transaction History</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page">
+    <h2>💳 Transaction History</h2>
+
+    <div class="card">
+      <label>Account Number</label>
+      <input id="accountNumber" placeholder="Enter account number" />
+      <button id="loadTransactions">View Transactions</button>
+    </div>
+
+    <div class="card">
+      <table id="transactionsTable" border="1" width="100%">
+        <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>To Account</th>
+            <th>Log</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="6">No data</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button onclick="window.location='/static/dashboard.html'">⬅ Back</button>
+  </div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

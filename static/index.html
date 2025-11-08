@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Banking App - Login</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page">
+    <h2>Banking App</h2>
+
+    <div class="card">
+      <h3>Login</h3>
+      <input id="login_email" placeholder="email" />
+      <input id="login_password" type="password" placeholder="password" />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <div class="card">
+      <h3>Register</h3>
+      <input id="reg_name" placeholder="Full name" />
+      <input id="reg_email" placeholder="email" />
+      <input id="reg_password" type="password" placeholder="password" />
+      <button onclick="register()">Register</button>
+    </div>
+
+    <div class="card">
+      <h3>Admin Login (separate)</h3>
+      <p>Use admin email/password to go to admin dashboard</p>
+      <input id="admin_email" placeholder="admin email" />
+      <input id="admin_password" type="password" placeholder="admin password" />
+      <button onclick="adminLogin()">Admin Login</button>
+    </div>
+
+  </div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

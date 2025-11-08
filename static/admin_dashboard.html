@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page">
+    <h2>Admin Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+
+    <section class="card">
+      <h3>Transactions (joined with customers)</h3>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input id="admin_search_q" placeholder="search name, email or account..." />
+        <select id="admin_order_by">
+          <option value="created_at">Date</option>
+          <option value="amount">Amount</option>
+        </select>
+        <select id="admin_direction">
+          <option value="desc">Desc</option>
+          <option value="asc">Asc</option>
+        </select>
+        <input id="admin_limit" placeholder="limit" style="width:80px;" value="200"/>
+        <button id="admin_load_btn">Load</button>
+      </div>
+
+      <div style="overflow-x:auto; margin-top:12px;">
+        <table id="admin_tx_table" border="1" width="100%">
+          <thead>
+            <tr>
+              <th>Tx ID</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>To Account</th>
+              <th>Log</th>
+              <th>Date</th>
+              <th>Account</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="7">No data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Stats (AVG)</h3>
+      <button id="admin_stats_btn">Load Stats</button>
+      <div id="admin_stats"></div>
+    </section>
+
+    <section class="card">
+      <h3>Rename Person</h3>
+      <p>To edit a person's name, enter the person id (found in transactions rows if you enable it) and the new name.</p>
+      <input id="rename_person_id" placeholder="person id" />
+      <input id="rename_person_name" placeholder="new name" />
+      <button id="rename_person_btn">Rename</button>
+    </section>
+
+    <p><a href="/static/dashboard.html"><button>Switch to user dashboard</button></a></p>
+  </div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

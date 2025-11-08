@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="page">
+    <h2>Your Dashboard</h2>
+    <button onclick="logout()">Logout</button>
+
+    <section class="card">
+      <h3>Create Account</h3>
+      <select id="acct_type"><option value="savings">Savings</option><option value="current">Current</option></select>
+      <button onclick="createAccount()">Create Account</button>
+    </section>
+
+    <section class="card">
+  <h3>Your Accounts</h3>
+  <div id="accounts_list"></div>
+</section>
+
+    <section class="card">
+      <h3>Make Transaction</h3>
+      <input id="src_account" placeholder="Source account number" />
+      <select id="tx_type">
+        <option value="deposit">Deposit</option>
+        <option value="withdrawal">Withdraw</option>
+        <option value="transfer">Transfer</option>
+      </select>
+      <input id="amount" placeholder="Amount" />
+      <input id="to_account" placeholder="To account (for transfer)" />
+      <button onclick="makeTx()">Submit</button>
+    </section>
+
+    <a href="/static/transaction.html"><button>View Transaction History</button></a>
+  </div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
