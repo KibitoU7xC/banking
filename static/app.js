@@ -60,40 +60,80 @@ async function logout() {
 // user functions
 async function createAccount() {
   const t = document.getElementById('acct_type').value;
-  const res = await fetch('/api/create_account', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({account_type: t}),
-    credentials: 'same-origin'
-  });
-  const j = await res.json();
-  if (res.ok) {
-  alert("Created: " + j.account_number);
-  const list = document.getElementById('accounts_list');
-  const newDiv = document.createElement('div');
-  newDiv.innerHTML = `<strong>${j.account_number}</strong> (new) - Balance: 0.00`;
-  list.appendChild(newDiv);
-  }
-  else {
-    alert("Error: " + (j.error || JSON.stringify(j)));
+
+  try {
+    const res = await fetch('/api/create_account', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({account_type: t}),
+      credentials: 'same-origin'
+    });
+
+    const j = await res.json();
+    console.log("📦 create_account response:", j);
+
+    if (res.ok && j.account_number) {
+      alert(`✅ Account created!\nNumber: ${j.account_number}\nType: ${t}`);
+      loadAccounts();  // refresh list once
+    } else {
+      alert("Error: " + (j.error || j.message || JSON.stringify(j)));
+    }
+  } catch (err) {
+    console.error("❌ createAccount failed:", err);
+    alert("Network error. Try again.");
   }
 }
 
-async function createAccount() {
-  const t = document.getElementById('acct_type').value;
-  const res = await fetch('/api/create_account', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({account_type: t}),
-    credentials: 'same-origin'
-  });
-  const j = await res.json();
-  if (res.ok) {
-    alert("Created: " + j.account_number);
-    // ✅ Wait briefly for DB commit before refreshing
-    setTimeout(loadAccounts, 500);
-  } else {
-    alert("Error: " + (j.error || JSON.stringify(j)));
+async function loadAccounts() {
+  console.log("🔍 loadAccounts() triggered");
+
+  const el = document.getElementById('accounts_list');
+  if (!el) {
+    console.warn("⚠️ No #accounts_list element found in DOM");
+    return;
+  }
+
+  el.innerHTML = "<div style='color:#555;'>Loading accounts...</div>";
+
+  try {
+    const res = await fetch('/api/accounts', { 
+      method: 'POST', 
+      credentials: 'same-origin'
+    });
+
+    const j = await res.json();
+    console.log("📦 Accounts response:", j);
+
+    if (!res.ok || !j.accounts) {
+      el.innerHTML = `<div style="color:red;">Error: ${j.error || 'Failed to load accounts'}</div>`;
+      return;
+    }
+
+    const rows = j.accounts;
+    if (rows.length === 0) {
+      el.innerHTML = "<div>No accounts yet.</div>";
+      return;
+    }
+
+    // ✅ Render all accounts neatly
+    el.innerHTML = rows.map(r => `
+      <div class="account-card" 
+           style="
+             border:1px solid #ddd;
+             background:#fff;
+             border-radius:8px;
+             margin:8px 0;
+             padding:10px;
+             box-shadow:0 1px 3px rgba(0,0,0,0.08);
+           ">
+        <strong>${r.account_number}</strong> 
+        <span style="color:#555;">(${r.account_type})</span>
+        <div>Balance: ₹${parseFloat(r.balance).toFixed(2)}</div>
+      </div>
+    `).join('');
+  } catch (e) {
+    console.error("❌ Error fetching accounts:", e);
+    el.innerHTML = "<div style='color:red;'>Network or fetch error</div>";
   }
 }
 

@@ -17,9 +17,9 @@
     </section>
 
     <section class="card">
-  <h3>Your Accounts</h3>
-  <div id="accounts_list"></div>
-</section>
+      <h3>Your Accounts</h3>
+      <div id="accounts_list">Loading...</div>
+    </section>
 
     <section class="card">
       <h3>Make Transaction</h3>
@@ -38,5 +38,11 @@
   </div>
 
 <script src="/static/app.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ Dashboard loaded — calling loadAccounts()");
+    loadAccounts();
+  });
+</script>
 </body>
 </html>

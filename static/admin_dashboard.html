@@ -13,10 +13,12 @@
     <section class="card">
       <h3>Transactions (joined with customers)</h3>
       <div style="display:flex;gap:8px;align-items:center;">
-        <input id="admin_search_q" placeholder="search name, email or account..." />
+        <input id="admin_search_q" placeholder="search name, email or account..."  />
         <select id="admin_order_by">
           <option value="created_at">Date</option>
           <option value="amount">Amount</option>
+          <option value="name">Customer name</option>
+          <option value="account_number">Account</option>
         </select>
         <select id="admin_direction">
           <option value="desc">Desc</option>
@@ -59,8 +61,6 @@
       <input id="rename_person_name" placeholder="new name" />
       <button id="rename_person_btn">Rename</button>
     </section>
-
-    <p><a href="/static/dashboard.html"><button>Switch to user dashboard</button></a></p>
   </div>
 
 <script src="/static/app.js"></script>
